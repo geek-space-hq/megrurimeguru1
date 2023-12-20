@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\megrurimeguru1\megrurimeguru1.csproj" />
+  </ItemGroup>
+
 </Project>
