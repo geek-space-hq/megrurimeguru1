@@ -1,7 +1,10 @@
 ﻿namespace Games
 {
-    public class Test
+    namespace Test
     {
-       static void Main(string[] args) { }
+        public class Test
+        {
+            static void Main(string[] args) { }
+        }
     }
 }

@@ -1,14 +1,10 @@
-﻿namespace Games
+﻿
+namespace Games
 {
     namespace CreateMap
     {
-        internal class GetNoise
+        public class GetNoise
         {
-
-        }
-        public class Grad
-        {
-            public Grad() { }
             public float GetGrad(int index, float x, float y, float z = 0)
             {
                 //格子点8つ分の固有ベクトルを求める
@@ -41,6 +37,13 @@
                 return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
             }
 
+            public double GetIndex(uint seed)
+            {
+                XorShiftAddSharp.XorShiftAdd xorShift = new(seed);
+                double index=Math.Round(xorShift.NextDouble()*255);
+                return index;
+
+            }
         }
     }
 
