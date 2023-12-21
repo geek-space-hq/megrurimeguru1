@@ -5,6 +5,14 @@ namespace Games
     {
         public class GetNoise
         {
+            /// <summary>
+            /// 格子点の固有ベクトルを求める
+            /// </summary>
+            /// <param name="index">0~255までのどれか</param>
+            /// <param name="x">x座標の小数部</param>
+            /// <param name="y">y座標の小数部</param>
+            /// <param name="z">z座標の小数部 3Dでない場合は0</param>
+            /// <returns></returns>
             public float GetGrad(int index, float x, float y, float z = 0)
             {
                 //格子点8つ分の固有ベクトルを求める
@@ -37,12 +45,32 @@ namespace Games
                 return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
             }
 
+            /// <summary>
+            /// 0~1の乱数を0~255に変換する
+            /// </summary>
+            /// <param name="seed">シード値</param>
+            /// <returns></returns>
             public double GetIndex(uint seed)
             {
                 XorShiftAddSharp.XorShiftAdd xorShift = new(seed);
                 double index=Math.Round(xorShift.NextDouble()*255);
                 return index;
 
+            }
+
+            /// <summary>
+            /// 補完関数 滑らかにするっぽい
+            /// </summary>
+            /// <param name="x">小数部</param>
+            /// <returns></returns>
+            public double smootherStep(double x)
+            {
+                return x * x * x * (x * (x * 6 - 15) + 10);
+            }
+
+            public double lerp(double a,double b,double t)
+            {
+                return (a + b) * t;
             }
         }
     }

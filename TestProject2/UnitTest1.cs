@@ -15,13 +15,20 @@ namespace TestProject2
         [TestMethod]
         public void TestMethod1()
         {
-          Games.CreateMap.GetNoise = new();
+            Games.CreateMap.GetNoise grad = new();
 
-            for (int i = 0; i < 256; i++)
+            for (uint i = 0; i < 100000; i++)
             {
-                float g=grad.GetGrad(i, 1, 1);
+                double g = grad.GetIndex(i);
                 Console.WriteLine(g.ToString());
             }
+        }
+        [TestMethod]
+        public void TestMethod2()
+        {
+            XorShiftAddSharp.XorShiftAdd xor = new(11);
+            Console.WriteLine(xor.NextDouble());
+            Console.WriteLine(xor.NextDouble());
         }
     }
 }
