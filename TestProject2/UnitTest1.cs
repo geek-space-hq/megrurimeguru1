@@ -15,12 +15,15 @@ namespace TestProject2
         [TestMethod]
         public void TestMethod1()
         {
-            Games.CreateMap.GetNoise grad = new();
+            Games.CreateMap.GetNoise grad = new(0);
 
-            for (uint i = 0; i < 100000; i++)
+            for (double i = 0; i < 1000; i++)
             {
-                double g = grad.GetIndex(i);
-                Console.WriteLine(g.ToString());
+                for (double j = 0; j < 1000; j++)
+                {
+                    double g = grad.CreateNoise(i / 100, j/100, 0);
+                    Console.WriteLine(g.ToString());
+                }
             }
         }
         [TestMethod]
