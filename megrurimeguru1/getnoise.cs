@@ -41,7 +41,7 @@ namespace Games
                 double v = smootherStep(yf);
                 double w = smootherStep(zf);
 
-                //255以上にならないようにする
+                //0~255の乱数を取得
                 int p000 = (int)GetIndex(rnd.NextDouble());
                 int p010 = (int)GetIndex(rnd.NextDouble());
                 int p001 = (int)GetIndex(rnd.NextDouble());
@@ -51,6 +51,7 @@ namespace Games
                 int p101 = (int)GetIndex(rnd.NextDouble());
                 int p111 = (int)GetIndex(rnd.NextDouble());
 
+                //この辺よくわからない
                 double g000 = GetGrad(p000, xf, yf, zf);
                 double g100 = GetGrad(p100, xf - 1, yf, zf);
                 double g010 = GetGrad(p010, xf, yf - 1, zf);
@@ -60,6 +61,7 @@ namespace Games
                 double g101 = GetGrad(p101, xf - 1, yf, zf - 1);
                 double g111 = GetGrad(p111, xf - 1, yf - 1, zf - 1);
 
+                //この辺もよくわからない
                 double x0 = lerp(g000, g100, u);
                 double x1 = lerp(g010, g110, u);
                 double x2 = lerp(g001, g101, u);
@@ -68,10 +70,11 @@ namespace Games
                 double y1 = lerp(x2, x3, v);
                 double z0 = lerp(y0, y1, w);
 
+                //プールに返却
                 Pool.Return(rnd);
-                //return z0;
                 return (z0 + 1) / 2;
             }
+
             /// <summary>
             /// 格子点の固有ベクトルを求める
             /// </summary>

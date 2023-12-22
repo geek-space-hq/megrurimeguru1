@@ -21,7 +21,7 @@ namespace TestProject2
             {
                 for (double j = 0; j < 1000; j++)
                 {
-                    double g = grad.CreateNoise(i / 100, j/100, 0);
+                    double g = grad.CreateNoise(i / 1000, j/1000, 0);
                     Console.WriteLine(g.ToString());
                 }
             }
