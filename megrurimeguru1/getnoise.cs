@@ -26,12 +26,16 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.5)
+                        if (blue < 0.6)
                         {
-                            img[i, j] = new Rgba32(0, 0, 256);
+                            img[i, j] = new Rgba32(30, 50, 125);
                         }
+                        else if (blue < 0.7)
+                            img[i, j] = new Rgba32(30, 130, 220);
+                        else if (blue < 0.9)
+                            img[i, j] = new Rgba32(200, 200, 120);
                         else
-                            img[i, j] = new Rgba32(0, 0, 0);
+                            img[i, j] = new Rgba32(150, 190, 100);
                     }
                     //img[i, j] = new Rgba32(0, 0, blue);
 
@@ -67,12 +71,13 @@ namespace Games
             /// <returns>0~1のノイズ</returns>
             public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
             {
-                double total = 0;
-                double amplitude = 10;
-                double maxValue = 0;
                 double density = 0;
                 for (int i = 0; i < noisePram.Count; i++)
                 {
+                    double total = 0;
+                    double amplitude = 10;
+                    double maxValue = 0;
+
                     double frequency = noisePram[i].Frequency;
                     for (int j = 0; j < noisePram[i].Octaves; j++)
                     {
@@ -239,7 +244,7 @@ namespace Games
         /// オクターブノイズ用パラメータクラス
         /// </summary>
         /// <
-        public class NoisePram
+        public record NoisePram
         {
             /// <summary>
             /// オクターブ
