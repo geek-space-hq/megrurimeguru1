@@ -6,16 +6,44 @@ namespace Games
     {
         public class GetNoise
         {
-            public uint Seed;
-            public GetNoise(uint seed)
+            private XorShiftAddPool XorRand;
+            public GetNoise(XorShiftAddPool xorRand)
             {
-                Seed = seed;
+                XorRand = xorRand;
             }
-            /// <summary>
-            /// 乱数生成器を管理するためのプール
-            /// </summary>
-            private static readonly XorShiftAddPool Pool = new XorShiftAddPool(111);
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="noisePram"></param>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <param name="z"></param>
+            /// <returns></returns>
+            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
+            {
+                double total = 0;
+                double amplitude = 10;
+                double maxValue = 0;
+                double density = 0;
+                for (int i = 0; i < noisePram.Count; i++)
+                {
+                    double frequency = noisePram[i].Frequency;
+                    for (int j = 0; j < noisePram[i].Octaves; j++)
+                    {
+                        double a = CreateNoise(x * frequency, y * frequency, z * frequency) * amplitude;
+                        total += a;
+
+                        maxValue += amplitude;
+
+                        amplitude *= noisePram[i].Persistence;
+                        frequency *= 2;
+
+                    }
+                    density += total / maxValue;
+                }
+                return density;
+            }
             /// <summary>
             /// 座標からパーリンノイズを生成する
             /// </summary>
@@ -23,10 +51,10 @@ namespace Games
             /// <param name="y"></param>
             /// <param name="z"></param>
             /// <returns>0~1の範囲のノイズ</returns>
-            public double CreateNoise(double x, double y, double z = 0)
+            internal double CreateNoise(double x, double y, double z = 0)
             {
                 //ここでプールから乱数生成器を借りてくる
-                var rnd = Pool.Get();
+                var rnd = XorRand.Get();
 
                 double xf = x - Math.Floor(x);
                 double yf = y - Math.Floor(y);
@@ -41,7 +69,7 @@ namespace Games
                 double v = smootherStep(yf);
                 double w = smootherStep(zf);
 
-                //255以上にならないようにする
+                //0~255の乱数を取得
                 int p000 = (int)GetIndex(rnd.NextDouble());
                 int p010 = (int)GetIndex(rnd.NextDouble());
                 int p001 = (int)GetIndex(rnd.NextDouble());
@@ -51,6 +79,7 @@ namespace Games
                 int p101 = (int)GetIndex(rnd.NextDouble());
                 int p111 = (int)GetIndex(rnd.NextDouble());
 
+                //この辺よくわからない
                 double g000 = GetGrad(p000, xf, yf, zf);
                 double g100 = GetGrad(p100, xf - 1, yf, zf);
                 double g010 = GetGrad(p010, xf, yf - 1, zf);
@@ -60,6 +89,7 @@ namespace Games
                 double g101 = GetGrad(p101, xf - 1, yf, zf - 1);
                 double g111 = GetGrad(p111, xf - 1, yf - 1, zf - 1);
 
+                //この辺もよくわからない
                 double x0 = lerp(g000, g100, u);
                 double x1 = lerp(g010, g110, u);
                 double x2 = lerp(g001, g101, u);
@@ -68,10 +98,11 @@ namespace Games
                 double y1 = lerp(x2, x3, v);
                 double z0 = lerp(y0, y1, w);
 
-                Pool.Return(rnd);
-                //return z0;
+                //プールに返却
+                XorRand.Return(rnd);
                 return (z0 + 1) / 2;
             }
+
             /// <summary>
             /// 格子点の固有ベクトルを求める
             /// </summary>
@@ -138,6 +169,15 @@ namespace Games
             {
                 return a + (b - a) * t;
             }
+        }
+        /// <summary>
+        /// オクターブノイズ用パラメータクラス
+        /// </summary>
+        public class NoisePram
+        {
+            public int Octaves { get; set; }
+            public double Persistence { get; set; }
+            public double Frequency { get; set; }
         }
     }
 
