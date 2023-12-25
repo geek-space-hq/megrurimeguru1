@@ -1,12 +1,54 @@
-﻿using Microsoft.Extensions.ObjectPool;
+﻿using System.Drawing;
+using Microsoft.Extensions.ObjectPool;
+using SixLabors.ImageSharp;
 using XorShiftAddSharp;
+using SixLabors.ImageSharp.ColorSpaces;
+using SixLabors.ImageSharp.PixelFormats;
+using System.Reflection.Metadata;
 namespace Games
 {
     namespace CreateMap
     {
+        public class CreateMapImg
+        {
+            private XorShiftAddPool XorRand;
+            public CreateMapImg(XorShiftAddPool xorRand)
+            {
+                XorRand = xorRand;
+            }
+            public void createMono(List<NoisePram> noisePram,int ImageHight=500,int ImageWidth=500,int StarX=0,int StartY=0,String SavePath="..\\test.png")
+            {
+                GetNoise getNoise = new GetNoise(XorRand);
+                //空の画像を生成
+                var img = new Image<Rgba32>(ImageHight, ImageWidth);
+                for (int i = 0; i < img.Height; i++)
+                {
+                    for (int j = 0; j < img.Width; j++)
+                    {
+                        float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
+                        if (blue < 0.5)
+                        {
+                            img[i, j] = new Rgba32(0, 0, 0);
+                        }
+
+                    }
+                }
+                img.Save(SavePath);
+
+            }
+        }
+
+        /// <summary>
+        /// ノイズ生成クラス
+        /// </summary>
         public class GetNoise
         {
             private XorShiftAddPool XorRand;
+
+            /// <summary>
+            /// 0~1のノイズを生成
+            /// </summary>
+            /// <param name="xorRand">生成に使用する乱数器</param>
             public GetNoise(XorShiftAddPool xorRand)
             {
                 XorRand = xorRand;
@@ -31,7 +73,7 @@ namespace Games
                     double frequency = noisePram[i].Frequency;
                     for (int j = 0; j < noisePram[i].Octaves; j++)
                     {
-                        double a = CreateNoise(x * frequency, y * frequency, z * frequency) * amplitude;
+                        double a = CreateNoise((x/noisePram[i].Scale) * frequency, (y/noisePram[i].Scale) * frequency, (z / noisePram[i].Scale) * frequency) * amplitude;
                         total += a;
 
                         maxValue += amplitude;
@@ -144,7 +186,7 @@ namespace Games
             }
 
             /// <summary>
-            /// 0~1の乱数を0~255に変換する
+            /// 0~1の乱数を0~2048に変換する
             /// </summary>
             /// <param name="seed">0~1の値</param>
             /// <returns></returns>
@@ -179,6 +221,7 @@ namespace Games
             public int Octaves { get; set; }
             public double Persistence { get; set; }
             public double Frequency { get; set; }
+            public int Scale { get; set; }
         }
     }
 
