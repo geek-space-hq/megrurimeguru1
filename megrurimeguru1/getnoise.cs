@@ -11,27 +11,38 @@ namespace Games
             {
                 XorRand = xorRand;
             }
+
             /// <summary>
-            /// 乱数生成器を管理するためのプール
+            /// 
             /// </summary>
-            public double OctavesNoise(NoisePram noisePram, double x, double y, double z = 0)
+            /// <param name="noisePram"></param>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <param name="z"></param>
+            /// <returns></returns>
+            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
             {
                 double total = 0;
                 double amplitude = 10;
                 double maxValue = 0;
-                double frequency = noisePram.Frequency;
-                for (int i = 0; i < noisePram.Octaves; i++)
+                double density = 0;
+                for (int i = 0; i < noisePram.Count; i++)
                 {
-                    double a=CreateNoise(x * frequency, y * frequency, z * frequency) * amplitude;
-                    total += a;
+                    double frequency = noisePram[i].Frequency;
+                    for (int j = 0; j < noisePram[i].Octaves; j++)
+                    {
+                        double a = CreateNoise(x * frequency, y * frequency, z * frequency) * amplitude;
+                        total += a;
 
-                    maxValue += amplitude;
+                        maxValue += amplitude;
 
-                    amplitude *= noisePram.Persistence;
-                    frequency *= 2;
+                        amplitude *= noisePram[i].Persistence;
+                        frequency *= 2;
 
+                    }
+                    density += total / maxValue;
                 }
-                return total / maxValue;
+                return density;
             }
             /// <summary>
             /// 座標からパーリンノイズを生成する

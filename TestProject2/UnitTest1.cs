@@ -22,12 +22,14 @@ namespace TestProject2
             noisePram.Frequency = 2;
             noisePram.Persistence = (double)1;
             noisePram.Octaves = 3;
+            List<NoisePram> noisePrams = new();
+            noisePrams.Add(noisePram);
 
             for (int i = 0; i < 100; i++)
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    double g = grad.OctavesNoise(noisePram,(double)i / 1000, (double)j/1000, 0);
+                    double g = grad.OctavesNoise(noisePrams,(double)i / 1000, (double)j/1000, 0);
                     Console.WriteLine(g.ToString());
                 }
             }
