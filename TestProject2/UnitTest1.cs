@@ -53,7 +53,7 @@ namespace TestProject2
             noisePrams[0].Persistence = 1;
             noisePrams[0].Octaves = 3;
             noisePrams[0].Scale = 100;
-            noisePrams[0].Mode = 1;
+            noisePrams[0].Mode = 0;
 
             noisePrams.Add(new());
             noisePrams[1].Frequency = 0.5;
@@ -61,6 +61,24 @@ namespace TestProject2
             noisePrams[1].Octaves = 2;
             noisePrams[1].Scale = 100;
             noisePrams[1].Mode = 1;
+
+            noisePrams.Add(new());
+            noisePrams[2].Frequency = 2;
+            noisePrams[2].Persistence = 1;
+            noisePrams[2].Octaves = 1;
+            noisePrams[2].Scale = 500;
+            noisePrams[2].Mode = 1;
+            noisePrams[2].OffsetX = 256;
+            noisePrams[2].OffsetY = 256;
+
+            noisePrams.Add(new());
+            noisePrams[3].Frequency = 2;
+            noisePrams[3].Persistence = 1;
+            noisePrams[3].Octaves= 1;
+            noisePrams[3].Scale = 1000;
+            noisePrams[3].Mode = 0;
+            noisePrams[3].OffsetX = 1000;
+            noisePrams[3].OffsetY = 1000;
             grad.createMono(noisePrams);
         }
     }

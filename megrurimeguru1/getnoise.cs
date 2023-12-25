@@ -26,14 +26,20 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        img[i, j] = new Rgba32(0, 0, blue);
-                        Console.WriteLine(blue.ToString());
+                        if (blue < 0.5)
+                        {
+                            img[i, j] = new Rgba32(0, 0, 256);
+                        }
+                        else
+                            img[i, j] = new Rgba32(0, 0, 0);
                     }
+                    //img[i, j] = new Rgba32(0, 0, blue);
+
                 }
                 img.Save(SavePath);
-
             }
         }
+
 
         /// <summary>
         /// ノイズ生成クラス
@@ -59,7 +65,7 @@ namespace Games
             /// <param name="y">y座標</param>
             /// <param name="z">z座標</param>
             /// <returns>0~1のノイズ</returns>
-            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0, double OffsetX = 0, double OffsetY = 0)
+            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
             {
                 double total = 0;
                 double amplitude = 10;
@@ -70,7 +76,9 @@ namespace Games
                     double frequency = noisePram[i].Frequency;
                     for (int j = 0; j < noisePram[i].Octaves; j++)
                     {
-                        double a = CreateNoise((x / noisePram[i].Scale) * frequency, (y / noisePram[i].Scale) * frequency, (z / noisePram[i].Scale) * frequency) * amplitude;
+                        double a = CreateNoise(
+                            ((x + noisePram[i].OffsetX) / noisePram[i].Scale) * frequency,
+                            ((y + noisePram[i].OffsetY) / noisePram[i].Scale) * frequency) * amplitude;
                         total += a;
 
                         maxValue += amplitude;
@@ -253,6 +261,9 @@ namespace Games
             /// 合成モード 0=加算 1=乗算 2=減算 3=除算
             /// </summary>
             public int Mode { get; set; } = 0;
+
+            public double OffsetX { get; set; } = 0;
+            public double OffsetY { get; set; } = 0;
         }
     }
 
