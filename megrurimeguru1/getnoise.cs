@@ -13,13 +13,13 @@ namespace Games
             }
 
             /// <summary>
-            /// 
+            /// オクターブノイズを生成する
             /// </summary>
-            /// <param name="noisePram"></param>
-            /// <param name="x"></param>
-            /// <param name="y"></param>
-            /// <param name="z"></param>
-            /// <returns></returns>
+            /// <param name="noisePram">ノイズパラメータリスト</param>
+            /// <param name="x">x座標</param>
+            /// <param name="y">y座標</param>
+            /// <param name="z">z座標</param>
+            /// <returns>0~1のノイズ</returns>
             public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
             {
                 double total = 0;
