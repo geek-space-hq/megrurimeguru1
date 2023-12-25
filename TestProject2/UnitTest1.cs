@@ -47,13 +47,20 @@ namespace TestProject2
         {
             XorShiftAddPool xorShiftAddPool = new(23);
             Games.CreateMap.CreateMapImg grad = new(xorShiftAddPool);
-            NoisePram noisePram = new();
-            noisePram.Frequency = 2;
-            noisePram.Persistence = 1;
-            noisePram.Octaves = 3;
-            noisePram.Scale = 100;
             List<NoisePram> noisePrams = new();
-            noisePrams.Add(noisePram);
+            noisePrams.Add(new());
+            noisePrams[0].Frequency = 2;
+            noisePrams[0].Persistence = 1;
+            noisePrams[0].Octaves = 3;
+            noisePrams[0].Scale = 100;
+            noisePrams[0].Mode = 1;
+
+            noisePrams.Add(new());
+            noisePrams[1].Frequency = 0.5;
+            noisePrams[1].Persistence = 20;
+            noisePrams[1].Octaves = 2;
+            noisePrams[1].Scale = 100;
+            noisePrams[1].Mode = 1;
             grad.createMono(noisePrams);
         }
     }

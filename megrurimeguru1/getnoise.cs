@@ -16,7 +16,7 @@ namespace Games
             {
                 XorRand = xorRand;
             }
-            public void createMono(List<NoisePram> noisePram,int ImageHight=500,int ImageWidth=500,int StarX=0,int StartY=0,String SavePath="..\\test.png")
+            public void createMono(List<NoisePram> noisePram, int ImageHight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
                 GetNoise getNoise = new GetNoise(XorRand);
                 //空の画像を生成
@@ -26,11 +26,8 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.5)
-                        {
-                            img[i, j] = new Rgba32(0, 0, 0);
-                        }
-
+                        img[i, j] = new Rgba32(0, 0, blue);
+                        Console.WriteLine(blue.ToString());
                     }
                 }
                 img.Save(SavePath);
@@ -62,7 +59,7 @@ namespace Games
             /// <param name="y">y座標</param>
             /// <param name="z">z座標</param>
             /// <returns>0~1のノイズ</returns>
-            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0)
+            public double OctavesNoise(List<NoisePram> noisePram, double x, double y, double z = 0, double OffsetX = 0, double OffsetY = 0)
             {
                 double total = 0;
                 double amplitude = 10;
@@ -73,7 +70,7 @@ namespace Games
                     double frequency = noisePram[i].Frequency;
                     for (int j = 0; j < noisePram[i].Octaves; j++)
                     {
-                        double a = CreateNoise((x/noisePram[i].Scale) * frequency, (y/noisePram[i].Scale) * frequency, (z / noisePram[i].Scale) * frequency) * amplitude;
+                        double a = CreateNoise((x / noisePram[i].Scale) * frequency, (y / noisePram[i].Scale) * frequency, (z / noisePram[i].Scale) * frequency) * amplitude;
                         total += a;
 
                         maxValue += amplitude;
@@ -82,7 +79,24 @@ namespace Games
                         frequency *= 2;
 
                     }
-                    density += total / maxValue;
+                    switch (noisePram[i].Mode)
+                    {
+                        case 0:
+                            density += total / maxValue;
+                            break;
+                        case 1:
+                            density *= total / maxValue;
+                            break;
+                        case 2:
+                            density -= total / maxValue;
+                            break;
+                        case 3:
+                            density /= total / maxValue;
+                            break;
+                        default:
+                            density += total / maxValue;
+                            break;
+                    }
                 }
                 return density;
             }
@@ -216,12 +230,29 @@ namespace Games
         /// <summary>
         /// オクターブノイズ用パラメータクラス
         /// </summary>
+        /// <
         public class NoisePram
         {
+            /// <summary>
+            /// オクターブ
+            /// </summary>
             public int Octaves { get; set; }
+
+            /// <summary>
+            /// よくわからない
+            /// </summary>
             public double Persistence { get; set; }
             public double Frequency { get; set; }
+
+            /// <summary>
+            /// 拡大率
+            /// </summary>
             public int Scale { get; set; }
+
+            /// <summary>
+            /// 合成モード 0=加算 1=乗算 2=減算 3=除算
+            /// </summary>
+            public int Mode { get; set; } = 0;
         }
     }
 
