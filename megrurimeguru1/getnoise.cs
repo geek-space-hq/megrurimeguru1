@@ -111,7 +111,7 @@ namespace Games
             /// <param name="y">y座標の小数部</param>
             /// <param name="z">z座標の小数部 3Dでない場合は0</param>
             /// <returns></returns>
-            public double GetGrad(int index, double x, double y, double z = 0)
+            private double GetGrad(int index, double x, double y, double z = 0)
             {
                 //格子点8つ分の固有ベクトルを求める
                 //indexから最初の4ビットを取り出す
@@ -148,9 +148,9 @@ namespace Games
             /// </summary>
             /// <param name="seed">0~1の値</param>
             /// <returns></returns>
-            public double GetIndex(double rnd)
+            private double GetIndex(double rnd)
             {
-                double index = Math.Round(rnd * 255);
+                double index = Math.Round(rnd * 2048);
                 return index;
 
             }
@@ -170,6 +170,7 @@ namespace Games
                 return a + (b - a) * t;
             }
         }
+
         /// <summary>
         /// オクターブノイズ用パラメータクラス
         /// </summary>
