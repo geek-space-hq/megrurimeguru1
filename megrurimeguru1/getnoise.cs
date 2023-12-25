@@ -6,16 +6,33 @@ namespace Games
     {
         public class GetNoise
         {
-            public uint Seed;
-            public GetNoise(uint seed)
+            private XorShiftAddPool XorRand;
+            public GetNoise(XorShiftAddPool xorRand)
             {
-                Seed = seed;
+                XorRand = xorRand;
             }
             /// <summary>
             /// 乱数生成器を管理するためのプール
             /// </summary>
-            private static readonly XorShiftAddPool Pool = new XorShiftAddPool(111);
+            public double OctavesNoise(NoisePram noisePram, double x, double y, double z = 0)
+            {
+                double total = 0;
+                double amplitude = 10;
+                double maxValue = 0;
+                double frequency = noisePram.Frequency;
+                for (int i = 0; i < noisePram.Octaves; i++)
+                {
+                    double a=CreateNoise(x * frequency, y * frequency, z * frequency) * amplitude;
+                    total += a;
 
+                    maxValue += amplitude;
+
+                    amplitude *= noisePram.Persistence;
+                    frequency *= 2;
+
+                }
+                return total / maxValue;
+            }
             /// <summary>
             /// 座標からパーリンノイズを生成する
             /// </summary>
@@ -23,10 +40,10 @@ namespace Games
             /// <param name="y"></param>
             /// <param name="z"></param>
             /// <returns>0~1の範囲のノイズ</returns>
-            public double CreateNoise(double x, double y, double z = 0)
+            internal double CreateNoise(double x, double y, double z = 0)
             {
                 //ここでプールから乱数生成器を借りてくる
-                var rnd = Pool.Get();
+                var rnd = XorRand.Get();
 
                 double xf = x - Math.Floor(x);
                 double yf = y - Math.Floor(y);
@@ -71,7 +88,7 @@ namespace Games
                 double z0 = lerp(y0, y1, w);
 
                 //プールに返却
-                Pool.Return(rnd);
+                XorRand.Return(rnd);
                 return (z0 + 1) / 2;
             }
 
@@ -141,6 +158,15 @@ namespace Games
             {
                 return a + (b - a) * t;
             }
+        }
+        /// <summary>
+        /// オクターブノイズ用パラメータクラス
+        /// </summary>
+        public class NoisePram
+        {
+            public int Octaves { get; set; }
+            public double Persistence { get; set; }
+            public double Frequency { get; set; }
         }
     }
 

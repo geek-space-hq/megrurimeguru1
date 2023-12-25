@@ -1,4 +1,5 @@
 using Games.CreateMap;
+using XorShiftAddSharp;
 
 namespace TestProject2
 {
@@ -15,13 +16,18 @@ namespace TestProject2
         [TestMethod]
         public void TestMethod1()
         {
-            Games.CreateMap.GetNoise grad = new(0);
+            XorShiftAddPool xorShiftAddPool = new(23);
+            Games.CreateMap.GetNoise grad = new(xorShiftAddPool);
+            NoisePram noisePram = new();
+            noisePram.Frequency = 2;
+            noisePram.Persistence = (double)1;
+            noisePram.Octaves = 3;
 
-            for (double i = 0; i < 1000; i++)
+            for (int i = 0; i < 100; i++)
             {
-                for (double j = 0; j < 1000; j++)
+                for (int j = 0; j < 100; j++)
                 {
-                    double g = grad.CreateNoise(i / 1000, j/1000, 0);
+                    double g = grad.OctavesNoise(noisePram,(double)i / 1000, (double)j/1000, 0);
                     Console.WriteLine(g.ToString());
                 }
             }
