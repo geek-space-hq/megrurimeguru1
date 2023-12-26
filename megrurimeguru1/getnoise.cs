@@ -26,7 +26,7 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.6)
+                        if (blue < 0.5)
                         {
                             img[i, j] = new Rgba32(30, 50, 125);
                         }
@@ -219,7 +219,7 @@ namespace Games
             /// <returns></returns>
             private double GetIndex(double rnd)
             {
-                double index = Math.Round(rnd * 2048);
+                double index = Math.Round(rnd * 256);
                 return index;
 
             }

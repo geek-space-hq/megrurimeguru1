@@ -45,29 +45,29 @@ namespace TestProject2
         [TestMethod]
         public void CreateMapImgTest1()
         {
-            XorShiftAddPool xorShiftAddPool = new(23);
+            XorShiftAddPool xorShiftAddPool = new(233);
             Games.CreateMap.CreateMapImg grad = new(xorShiftAddPool);
             List<NoisePram> noisePrams = new();
 
             NoisePram noisePram1 = new NoisePram();
             noisePram1.Frequency = 2;
-            noisePram1.Persistence = 1;
-            noisePram1.Octaves = 3;
-            noisePram1.Scale = 100;
+            noisePram1.Persistence = 10;
+            noisePram1.Octaves = 1;
+            noisePram1.Scale = 1000;
             noisePram1.Mode = 0;
             
             NoisePram noisePram2 = new NoisePram();
             noisePram2.Frequency = 0.5;
             noisePram2.Persistence = 20;
             noisePram2.Octaves = 2;
-            noisePram2.Scale = 100;
-            noisePram2.Mode = 1;
+            noisePram2.Scale = 1000;
+            noisePram2.Mode = 0;
 
             NoisePram noisePram3 = new NoisePram();
             noisePram3.Frequency = 2;
             noisePram3.Persistence = 2;
             noisePram3.Octaves = 1;
-            noisePram3.Scale = 500;
+            noisePram3.Scale = 5000;
             noisePram3.Mode = 1;
             noisePram3.OffsetX = 256;
             noisePram3.OffsetY = 256;
@@ -76,7 +76,7 @@ namespace TestProject2
             noisePram4.Frequency = 2;
             noisePram4.Persistence = 1;
             noisePram4.Octaves = 1;
-            noisePram4.Scale = 1000;
+            noisePram4.Scale = 10000;
             noisePram4.Mode = 0;
             noisePram4.OffsetX = 1000;
             noisePram4.OffsetY = 1000;
