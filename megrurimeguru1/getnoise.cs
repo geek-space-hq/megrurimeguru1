@@ -12,10 +12,12 @@ namespace Games
         public class CreateMapImg
         {
             private XorShiftAddPool XorRand;
+
             public CreateMapImg(XorShiftAddPool xorRand)
             {
                 XorRand = xorRand;
             }
+
             public void createMono(List<NoisePram> noisePram, int ImageHight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
                 GetNoise getNoise = new GetNoise(XorRand);
@@ -50,7 +52,9 @@ namespace Games
         /// </summary>
         public class GetNoise
         {
+
             private XorShiftAddPool XorRand;
+            private int[] p = new int[512];
 
             /// <summary>
             /// 0~1のノイズを生成
@@ -59,6 +63,19 @@ namespace Games
             public GetNoise(XorShiftAddPool xorRand)
             {
                 XorRand = xorRand;
+                CreateHashTable();
+            }
+            internal void CreateHashTable()
+            {
+                var rnd = XorRand.Get();
+                for (int i = 0; i < 256; i++)
+                {
+
+                    int a = (int)Math.Round(rnd.NextDouble()*256);
+                    p[i] = a;
+                    p[i + 256] = a;
+                }
+                XorRand.Return(rnd);
             }
 
             /// <summary>
@@ -122,8 +139,12 @@ namespace Games
             /// <returns>0~1の範囲のノイズ</returns>
             internal double CreateNoise(double x, double y, double z = 0)
             {
-                //ここでプールから乱数生成器を借りてくる
-                var rnd = XorRand.Get();
+                //与えられたxyzから格子点を求める
+                //xyzを囲む整数座標の正方形
+                //0~255までの範囲かつ負の範囲をとらない
+                int xi = (int)x & 255;
+                int yi = (int)y & 255;
+                int zi = (int)z & 255;
 
                 double xf = x - Math.Floor(x);
                 double yf = y - Math.Floor(y);
@@ -139,14 +160,14 @@ namespace Games
                 double w = smootherStep(zf);
 
                 //0~255の乱数を取得
-                int p000 = (int)GetIndex(rnd.NextDouble());
-                int p010 = (int)GetIndex(rnd.NextDouble());
-                int p001 = (int)GetIndex(rnd.NextDouble());
-                int p011 = (int)GetIndex(rnd.NextDouble());
-                int p100 = (int)GetIndex(rnd.NextDouble());
-                int p110 = (int)GetIndex(rnd.NextDouble());
-                int p101 = (int)GetIndex(rnd.NextDouble());
-                int p111 = (int)GetIndex(rnd.NextDouble());
+                int p000 = p[p[p[xi] + yi] + zi];
+                int p010 = p[p[p[xi] + inc(yi)] + zi];
+                int p001 = p[p[p[xi] + yi] + inc(zi)];
+                int p011 = p[p[p[xi] + inc(yi)] + inc(zi)];
+                int p100 = p[p[p[inc(xi)] + yi] + zi];
+                int p110 = p[p[p[inc(xi)] + inc(yi)] + zi];
+                int p101 = p[p[p[inc(xi)] + yi] + inc(zi)];
+                int p111 = p[p[p[inc(xi)] + inc(yi)] + inc(zi)];
 
                 //この辺よくわからない
                 double g000 = GetGrad(p000, xf, yf, zf);
@@ -167,9 +188,11 @@ namespace Games
                 double y1 = lerp(x2, x3, v);
                 double z0 = lerp(y0, y1, w);
 
-                //プールに返却
-                XorRand.Return(rnd);
                 return (z0 + 1) / 2;
+            }
+            public int inc(int num) //numに+1した場合に256を超えたら0に戻す
+            {
+                return (num + 1) % 256;
             }
 
             /// <summary>

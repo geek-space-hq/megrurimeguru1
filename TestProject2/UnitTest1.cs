@@ -45,7 +45,7 @@ namespace TestProject2
         [TestMethod]
         public void CreateMapImgTest1()
         {
-            XorShiftAddPool xorShiftAddPool = new(233);
+            XorShiftAddPool xorShiftAddPool = new(23);
             Games.CreateMap.CreateMapImg grad = new(xorShiftAddPool);
             List<NoisePram> noisePrams = new();
 
