@@ -14,7 +14,7 @@ namespace Games
             private uint Seed;
             public CreateMapImg(uint seed)
             {
-                Seed=seed;
+                Seed = seed;
             }
             public void createMono(List<NoisePram> noisePram, int ImageHight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
@@ -26,7 +26,7 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.5)
+                        if (blue < 0.3)
                         {
                             img[i, j] = new Rgba32(30, 50, 125);
                         }
@@ -58,7 +58,7 @@ namespace Games
             /// <param name="xorRand">生成に使用する乱数器</param>
             public GetNoise(uint seed)
             {
-                Seed=seed;
+                Seed = seed;
             }
 
             /// <summary>
@@ -138,14 +138,14 @@ namespace Games
                 double w = smootherStep(zf);
 
                 //0~255の乱数を取得
-                int p000 = (int)GetIndex(new XorShiftAdd(Seed+(uint)xf).NextDouble());
-                int p010 = (int)GetIndex(new XorShiftAdd(Seed+(uint)(xf)).NextDouble());
-                int p001 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf - yf)).NextDouble());
-                int p011 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf * yf)).NextDouble());
-                int p100 = (int)GetIndex(new XorShiftAdd(Seed + (uint)yf).NextDouble());
-                int p110 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf + yf+yf)).NextDouble());
-                int p101 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(yf - yf+xf)).NextDouble());
-                int p111 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf * yf*yf)).NextDouble());
+                int p000 = (int)GetIndex(new XorShiftAdd(Seed + (uint)xf).NextDouble());
+                int p100 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf-1)).NextDouble());
+                int p010 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(yf - 1)).NextDouble());
+                int p001 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(zf-1)).NextDouble());
+                int p110 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(yf - 1+xf-1)).NextDouble());
+                int p011 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf -1+zf-1)).NextDouble());
+                int p101 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(yf - 1+zf-1)).NextDouble());
+                int p111 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf-1+yf-1+zf-1)).NextDouble());
 
                 //この辺よくわからない
                 double g000 = GetGrad(p000, xf, yf, zf);
