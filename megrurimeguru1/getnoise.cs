@@ -11,14 +11,14 @@ namespace Games
     {
         public class CreateMapImg
         {
-            private XorShiftAddPool XorRand;
-            public CreateMapImg(XorShiftAddPool xorRand)
+            private uint Seed;
+            public CreateMapImg(uint seed)
             {
-                XorRand = xorRand;
+                Seed=seed;
             }
             public void createMono(List<NoisePram> noisePram, int ImageHight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
-                GetNoise getNoise = new GetNoise(XorRand);
+                GetNoise getNoise = new GetNoise(Seed);
                 //空の画像を生成
                 var img = new Image<Rgba32>(ImageHight, ImageWidth);
                 for (int i = 0; i < img.Height; i++)
@@ -50,15 +50,15 @@ namespace Games
         /// </summary>
         public class GetNoise
         {
-            private XorShiftAddPool XorRand;
+            private uint Seed;
 
             /// <summary>
             /// 0~1のノイズを生成
             /// </summary>
             /// <param name="xorRand">生成に使用する乱数器</param>
-            public GetNoise(XorShiftAddPool xorRand)
+            public GetNoise(uint seed)
             {
-                XorRand = xorRand;
+                Seed=seed;
             }
 
             /// <summary>
@@ -123,7 +123,6 @@ namespace Games
             internal double CreateNoise(double x, double y, double z = 0)
             {
                 //ここでプールから乱数生成器を借りてくる
-                var rnd = XorRand.Get();
 
                 double xf = x - Math.Floor(x);
                 double yf = y - Math.Floor(y);
@@ -139,14 +138,14 @@ namespace Games
                 double w = smootherStep(zf);
 
                 //0~255の乱数を取得
-                int p000 = (int)GetIndex(rnd.NextDouble());
-                int p010 = (int)GetIndex(rnd.NextDouble());
-                int p001 = (int)GetIndex(rnd.NextDouble());
-                int p011 = (int)GetIndex(rnd.NextDouble());
-                int p100 = (int)GetIndex(rnd.NextDouble());
-                int p110 = (int)GetIndex(rnd.NextDouble());
-                int p101 = (int)GetIndex(rnd.NextDouble());
-                int p111 = (int)GetIndex(rnd.NextDouble());
+                int p000 = (int)GetIndex(new XorShiftAdd(Seed+(uint)xf).NextDouble());
+                int p010 = (int)GetIndex(new XorShiftAdd(Seed+(uint)(xf)).NextDouble());
+                int p001 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf - yf)).NextDouble());
+                int p011 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf * yf)).NextDouble());
+                int p100 = (int)GetIndex(new XorShiftAdd(Seed + (uint)yf).NextDouble());
+                int p110 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf + yf+yf)).NextDouble());
+                int p101 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(yf - yf+xf)).NextDouble());
+                int p111 = (int)GetIndex(new XorShiftAdd(Seed + (uint)(xf * yf*yf)).NextDouble());
 
                 //この辺よくわからない
                 double g000 = GetGrad(p000, xf, yf, zf);
@@ -157,6 +156,7 @@ namespace Games
                 double g011 = GetGrad(p011, xf, yf - 1, zf - 1);
                 double g101 = GetGrad(p101, xf - 1, yf, zf - 1);
                 double g111 = GetGrad(p111, xf - 1, yf - 1, zf - 1);
+                Console.WriteLine(g111.ToString());
 
                 //この辺もよくわからない
                 double x0 = lerp(g000, g100, u);
@@ -166,9 +166,6 @@ namespace Games
                 double y0 = lerp(x0, x1, v);
                 double y1 = lerp(x2, x3, v);
                 double z0 = lerp(y0, y1, w);
-
-                //プールに返却
-                XorRand.Return(rnd);
                 return (z0 + 1) / 2;
             }
 
@@ -219,7 +216,7 @@ namespace Games
             /// <returns></returns>
             private double GetIndex(double rnd)
             {
-                double index = Math.Round(rnd * 256);
+                double index = Math.Round(rnd * 2049);
                 return index;
 
             }

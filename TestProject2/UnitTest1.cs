@@ -17,7 +17,7 @@ namespace TestProject2
         public void TestMethod1()
         {
             XorShiftAddPool xorShiftAddPool = new(23);
-            Games.CreateMap.GetNoise grad = new(xorShiftAddPool);
+            Games.CreateMap.GetNoise grad = new(1);
             NoisePram noisePram = new();
             noisePram.Frequency = 2;
             noisePram.Persistence = (double)1;
@@ -46,14 +46,14 @@ namespace TestProject2
         public void CreateMapImgTest1()
         {
             XorShiftAddPool xorShiftAddPool = new(233);
-            Games.CreateMap.CreateMapImg grad = new(xorShiftAddPool);
+            Games.CreateMap.CreateMapImg grad = new(33);
             List<NoisePram> noisePrams = new();
 
             NoisePram noisePram1 = new NoisePram();
             noisePram1.Frequency = 2;
             noisePram1.Persistence = 10;
             noisePram1.Octaves = 1;
-            noisePram1.Scale = 1000;
+            noisePram1.Scale = 100;
             noisePram1.Mode = 0;
             
             NoisePram noisePram2 = new NoisePram();
@@ -82,9 +82,9 @@ namespace TestProject2
             noisePram4.OffsetY = 1000;
 
             noisePrams.Add(noisePram1);
-            noisePrams.Add(noisePram2);
-            noisePrams.Add(noisePram3);
-            noisePrams.Add(noisePram4);
+            //noisePrams.Add(noisePram2);
+            //noisePrams.Add(noisePram3);
+            //noisePrams.Add(noisePram4);
 
             grad.createMono(noisePrams);
         }
