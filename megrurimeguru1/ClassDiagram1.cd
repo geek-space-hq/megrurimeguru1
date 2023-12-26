@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Games.GetNoise.CreateMapImg">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>getnoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Games.GetNoise.GetNoise">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAAACAAAQAAAAAIAAAAiAAAAAAEAAAgAAAEA=</HashCode>
+      <FileName>getnoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

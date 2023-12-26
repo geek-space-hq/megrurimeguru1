@@ -1,4 +1,4 @@
-using Games.CreateMap;
+using Games.GetNoise;
 using XorShiftAddSharp;
 
 namespace TestProject2
@@ -17,7 +17,7 @@ namespace TestProject2
         public void TestMethod1()
         {
             XorShiftAddPool xorShiftAddPool = new(23);
-            Games.CreateMap.GetNoise grad = new(xorShiftAddPool);
+            Games.GetNoise.GetNoise grad = new(xorShiftAddPool);
             NoisePram noisePram = new();
             noisePram.Frequency = 2;
             noisePram.Persistence = (double)1;
@@ -38,7 +38,7 @@ namespace TestProject2
         [TestMethod]
         public void TestMethod2()
         {
-            XorShiftAddSharp.XorShiftAdd xor = new(11);
+            XorShiftAddSharp.XorShiftAdd xor = new(1331);
             Console.WriteLine(xor.NextDouble());
             Console.WriteLine(xor.NextDouble());
         }
@@ -46,28 +46,28 @@ namespace TestProject2
         public void CreateMapImgTest1()
         {
             XorShiftAddPool xorShiftAddPool = new(23);
-            Games.CreateMap.CreateMapImg grad = new(xorShiftAddPool);
+            Games.GetNoise.CreateMapImg grad = new(xorShiftAddPool);
             List<NoisePram> noisePrams = new();
 
             NoisePram noisePram1 = new NoisePram();
             noisePram1.Frequency = 2;
-            noisePram1.Persistence = 10;
-            noisePram1.Octaves = 1;
-            noisePram1.Scale = 1000;
+            noisePram1.Persistence = 1;
+            noisePram1.Octaves = 3;
+            noisePram1.Scale = 200;
             noisePram1.Mode = 0;
             
             NoisePram noisePram2 = new NoisePram();
             noisePram2.Frequency = 0.5;
             noisePram2.Persistence = 20;
             noisePram2.Octaves = 2;
-            noisePram2.Scale = 1000;
-            noisePram2.Mode = 0;
+            noisePram2.Scale = 200;
+            noisePram2.Mode = 1;
 
             NoisePram noisePram3 = new NoisePram();
             noisePram3.Frequency = 2;
-            noisePram3.Persistence = 2;
+            noisePram3.Persistence = 1;
             noisePram3.Octaves = 1;
-            noisePram3.Scale = 5000;
+            noisePram3.Scale = 400;
             noisePram3.Mode = 1;
             noisePram3.OffsetX = 256;
             noisePram3.OffsetY = 256;
@@ -76,7 +76,7 @@ namespace TestProject2
             noisePram4.Frequency = 2;
             noisePram4.Persistence = 1;
             noisePram4.Octaves = 1;
-            noisePram4.Scale = 10000;
+            noisePram4.Scale = 2000;
             noisePram4.Mode = 0;
             noisePram4.OffsetX = 1000;
             noisePram4.OffsetY = 1000;
@@ -86,7 +86,7 @@ namespace TestProject2
             noisePrams.Add(noisePram3);
             noisePrams.Add(noisePram4);
 
-            grad.createMono(noisePrams);
+            grad.createMono(noisePrams,5000,5000);
         }
     }
 }

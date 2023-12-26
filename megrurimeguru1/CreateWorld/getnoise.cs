@@ -5,9 +5,10 @@ using XorShiftAddSharp;
 using SixLabors.ImageSharp.ColorSpaces;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Reflection.Metadata;
+using System.Security.Principal;
 namespace Games
 {
-    namespace CreateMap
+    namespace GetNoise
     {
         public class CreateMapImg
         {
@@ -28,13 +29,13 @@ namespace Games
                     for (int j = 0; j < img.Width; j++)
                     {
                         float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.5)
+                        if (blue < 0.4)
                         {
                             img[i, j] = new Rgba32(30, 50, 125);
                         }
-                        else if (blue < 0.7)
+                        else if (blue < 0.5)
                             img[i, j] = new Rgba32(30, 130, 220);
-                        else if (blue < 0.9)
+                        else if (blue < 0.6)
                             img[i, j] = new Rgba32(200, 200, 120);
                         else
                             img[i, j] = new Rgba32(150, 190, 100);
@@ -71,7 +72,7 @@ namespace Games
                 for (int i = 0; i < 256; i++)
                 {
 
-                    int a = (int)Math.Round(rnd.NextDouble()*256);
+                    int a = (int)Math.Round(rnd.NextDouble() * 256);
                     p[i] = a;
                     p[i + 256] = a;
                 }
@@ -190,7 +191,7 @@ namespace Games
 
                 return (z0 + 1) / 2;
             }
-            public int inc(int num) //numに+1した場合に256を超えたら0に戻す
+            private int inc(int num) //numに+1した場合に256を超えたら0に戻す
             {
                 return (num + 1) % 256;
             }
@@ -252,12 +253,12 @@ namespace Games
             /// </summary>
             /// <param name="x">小数部</param>
             /// <returns></returns>
-            public double smootherStep(double x)
+            private double smootherStep(double x)
             {
                 return x * x * x * (x * (x * 6 - 15) + 10);
             }
 
-            public double lerp(double a, double b, double t)
+            double lerp(double a, double b, double t)
             {
                 return a + (b - a) * t;
             }
