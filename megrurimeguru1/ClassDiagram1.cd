@@ -4,14 +4,45 @@
     <Position X="4.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>getnoise.cs</FileName>
+      <FileName>CreateWorld\getnoise.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Games.GetNoise.GetNoise">
-    <Position X="6.5" Y="1.5" Width="1.5" />
+    <Position X="7.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIABAAAACAAAQAAAAAIAAAAiAAAAAAEAAAgAAAEA=</HashCode>
-      <FileName>getnoise.cs</FileName>
+      <FileName>CreateWorld\getnoise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="megrurimeguru1.Item.BlockPram">
+    <Position X="10.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAgIAAAAACAA=</HashCode>
+      <FileName>Item\Blockstatus.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="megrurimeguru1.Item.ItemCategory">
+    <Position X="12.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Item\ItemCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="megrurimeguru1.Item.Blocks.Sand">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Item\Blocks\sand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="megrurimeguru1.Item.Blocks.Water">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Item\Blocks\water.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Yu Gothic UI" Size="9" />

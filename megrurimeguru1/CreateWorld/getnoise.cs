@@ -10,6 +10,9 @@ namespace Games
 {
     namespace GetNoise
     {
+        /// <summary>
+        /// 確認画像生成用クラス
+        /// </summary>
         public class CreateMapImg
         {
             private XorShiftAddPool XorRand;
