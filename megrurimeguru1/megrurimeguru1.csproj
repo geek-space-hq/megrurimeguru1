@@ -8,13 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.1" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
-    <PackageReference Include="XorShiftAddSharp" Version="1.0.1" />
+    <Compile Remove="Item\新しいフォルダー\**" />
+    <EmbeddedResource Remove="Item\新しいフォルダー\**" />
+    <None Remove="Item\新しいフォルダー\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Item\新しいフォルダー\" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <PackageReference Include="XorShiftAddSharp" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

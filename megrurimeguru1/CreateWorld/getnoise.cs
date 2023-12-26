@@ -267,7 +267,6 @@ namespace Games
         /// <summary>
         /// オクターブノイズ用パラメータクラス
         /// </summary>
-        /// <
         public record NoisePram
         {
             /// <summary>
