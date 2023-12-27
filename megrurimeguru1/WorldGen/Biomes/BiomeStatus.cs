@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp.PixelFormats;
+using megrurimeguru1.Item.Blocks;
 
 namespace megrurimeguru1.Item.Biomes
 {
@@ -36,25 +37,6 @@ namespace megrurimeguru1.Item.Biomes
         public BiomeCategory? Category { get; set; }
 
         /// <summary>
-        /// バイオームの生成設定リスト
-        /// </summary>
-        public BiomeGenerateSetting[]? BiomeGenerateSettings { get; set; }
-    }
-
-    public class BiomeCategory
-    {
-        public string Name { get; set; } = "other";
-        public string Description { get; set; } = "other";
-        public int ID { get; set; }
-    }
-    public class BiomeGenerateSetting
-    {
-        /// <summary>
-        /// 生成タイプ
-        /// </summary>
-        public int GnerateType { get; set; }
-
-        /// <summary>
         /// 生成最低高度 0~256
         /// </summary>
         public Hight MinZ { get; set; } = 0;
@@ -70,12 +52,22 @@ namespace megrurimeguru1.Item.Biomes
         public Rgba32? WaterColor { get; set; }
 
         /// <summary>
-        /// 生成するブロック
+        /// 地表で生成するブロック
         /// </summary>
-        public Blocks.Blocks? blocks { get; set; }
+        public Block blocks { get; set; }
 
         /// <summary>
-        /// バイオームの中に生成するかどうか
+        /// 水中で生成するブロック
+        /// </summary>
+        public Block? UnderWaterBlocks { get; set; }
+
+        /// <summary>
+        /// 水と隣合う場合に設定するブロック
+        /// </summary>
+        public Block? NearWaterBlocks { get; set; }
+
+        /// <summary>
+        /// 別のバイオームの中に生成するかどうか
         /// </summary>
         public bool GenerateInOtherBiomes { get; set; }
 
@@ -83,6 +75,17 @@ namespace megrurimeguru1.Item.Biomes
         /// 出現頻度
         /// </summary>
         public int GenerationFrequency { get; set; }
+    }
+
+    public class BiomeCategory
+    {
+        public string Name { get; set; } = "other";
+        public string Description { get; set; } = "other";
+        public int ID { get; set; }
+    }
+    public class BiomeGenerateSetting
+    {
+        
     }
     /// <summary>
     /// int 0~255 高さ設定

@@ -86,7 +86,7 @@ namespace TestProject2
             noisePrams.Add(noisePram3);
             noisePrams.Add(noisePram4);
 
-            grad.createMono(noisePrams,5000,5000);
+            grad.createMono(noisePrams,10000,10000);
         }
     }
 }

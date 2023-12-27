@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace megrurimeguru1.Item.Blocks
 {
-    public class Sand : Blocks
+    public class Sand : Block
     {
         public Sand()
         {

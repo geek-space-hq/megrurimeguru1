@@ -39,7 +39,7 @@ namespace megrurimeguru1.Item.Blocks
         /// </summary>
         public ItemCategory? Category { get; set; }
     }
-    public class Blocks
+    public class Block
     {
         public List<BlockPram> Pram { get; set; }
     }

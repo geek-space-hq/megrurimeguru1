@@ -22,25 +22,40 @@ namespace Games
                 XorRand = xorRand;
             }
 
-            public void createMono(List<NoisePram> noisePram, int ImageHight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
+            public void createMono(List<NoisePram> noisePram, int ImageHeight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
                 GetNoise getNoise = new GetNoise(XorRand);
                 //空の画像を生成
-                var img = new Image<Rgba32>(ImageHight, ImageWidth);
+                var img = new Image<Rgba32>(ImageHeight, ImageWidth);
+                List<List<double>> CheckImg= new();
+                double Maxblue=0;
+                double Minblue=2;
+                for (int i = 0; i < img.Height; i++)
+                {
+                    List<double> data = new List<double>();
+                    for (int j = 0; j < img.Width; j++)
+                    {
+
+                        float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
+                        data.Add(blue);
+                        if(Maxblue<blue) Maxblue = blue;
+                        if(Minblue>blue) Minblue = blue;
+                    }
+                    CheckImg.Add(data);
+                }
                 for (int i = 0; i < img.Height; i++)
                 {
                     for (int j = 0; j < img.Width; j++)
                     {
-                        float blue = (float)getNoise.OctavesNoise(noisePram, (double)i, (double)j);
-                        if (blue < 0.4)
+                        if (CheckImg[i][j]<((Maxblue - Minblue) / 4 * 1)+Minblue)
                         {
                             img[i, j] = new Rgba32(30, 50, 125);
                         }
-                        else if (blue < 0.5)
+                        else if (CheckImg[i][j] <((Maxblue - Minblue) / 4 * 2) + Minblue)
                             img[i, j] = new Rgba32(30, 130, 220);
-                        else if (blue < 0.6)
+                        else if (CheckImg[i][j] <((Maxblue - Minblue) / 4 * 3) + Minblue)
                             img[i, j] = new Rgba32(200, 200, 120);
-                        else
+                        else 
                             img[i, j] = new Rgba32(150, 190, 100);
                     }
                     //img[i, j] = new Rgba32(0, 0, blue);
