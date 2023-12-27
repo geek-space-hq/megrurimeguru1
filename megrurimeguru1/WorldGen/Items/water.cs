@@ -11,7 +11,7 @@ namespace megrurimeguru1.Item.Blocks
         public Water()
         {
             Name = "water";
-            Callor = new(200, 200,120);
+            Color = new(200, 200,120);
             Category = ItemCategorys.TerraBlocks;
 ;        }
     }

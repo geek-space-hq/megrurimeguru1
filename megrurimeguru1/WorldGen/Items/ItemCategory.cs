@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace megrurimeguru1.Item
+namespace megrurimeguru1.Item.Blocks
 {
     public class ItemCategory
     {

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace megrurimeguru1.Item.Blocks
 {
-    public class Sand : BlockPram
+    public class Sand : Blocks
     {
         public Sand()
         {
-            Name = "sand";
-            Callor = new(200, 200, 120);
-            Category = ItemCategorys.TerraBlocks;
-
+            BlockPram sand = new BlockPram();
+            sand.Name = "sand";
+            sand.Color =new(100,100,125);
+            sand.Description = "砂";
         }
     }
 }
