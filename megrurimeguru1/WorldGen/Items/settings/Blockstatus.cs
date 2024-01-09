@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace megrurimeguru1.Item.Blocks
+namespace megrurimeguru1.WorldGen.Items.settings
 {
     public class BlockPram
     {
         /// <summary>
         /// IDは自動で振るかも
         /// </summary>
-        public int? ID { get; set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// アイテムの名前 未設定だとvoid
@@ -27,7 +27,7 @@ namespace megrurimeguru1.Item.Blocks
         /// <summary>
         /// テクスチャの相対フォルダパス
         /// </summary>
-        public FileInfo? Texture { get; set; }
+        public FileInfo Texture { get; set; }
 
         /// <summary>
         /// テクスチャ未設定時に表示するRGBコード
@@ -37,10 +37,6 @@ namespace megrurimeguru1.Item.Blocks
         /// <summary>
         /// アイテムのカテゴリー
         /// </summary>
-        public ItemCategory? Category { get; set; }
-    }
-    public class Block
-    {
-        public List<BlockPram> Pram { get; set; }
+        public ItemCategory Category { get; set; }
     }
 }
