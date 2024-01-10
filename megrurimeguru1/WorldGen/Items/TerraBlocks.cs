@@ -17,7 +17,7 @@ namespace megrurimeguru1.WorldGen.Items
             Name = "Glass";
             Color = new(150, 190, 100);
             Description = "草";
-            ItemCategory = TerraBlocks;
+            Category = new TerraBlocks();
 
         }
     }
@@ -29,7 +29,7 @@ namespace megrurimeguru1.WorldGen.Items
             Name = "sand";
             Color = new(100, 100, 125);
             Description = "砂";
-            ItemCategory = TerraBlocks;
+            Category= new TerraBlocks();
 
         }
     }
@@ -39,7 +39,7 @@ namespace megrurimeguru1.WorldGen.Items
         {
             Name = "water";
             Color = new(200, 200, 120);
-            Category = settings.TerraBlocks;
+            Category = new TerraBlocks();
         }
     }
 }

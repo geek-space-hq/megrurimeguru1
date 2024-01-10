@@ -8,8 +8,8 @@ namespace megrurimeguru1.WorldGen.Items.settings
 {
     public class ItemCategory
     {
-        public int ID { get; set; } = -1;
-        public string Name { get; set; } = "other";
+        public static int ID { get; set; } = -1;
+        public static string Name { get; set; } = "other";
     }
     public class TerraBlocks : ItemCategory
     {

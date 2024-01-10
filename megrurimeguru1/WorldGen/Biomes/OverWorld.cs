@@ -1,4 +1,4 @@
-﻿using megrurimeguru1.Item.Blocks;
+﻿using SixLabors.ImageSharp.PixelFormats;
 using megrurimeguru1.WorldGen.Biomes.settings;
 using megrurimeguru1.WorldGen.Items;
 using System;
@@ -16,10 +16,12 @@ namespace megrurimeguru1.WorldGen.Biomes
             Name = "Plane";
             Description = "草wwww";
             Color = new Rgba32(150, 190, 100);
-            BiomeCategory = OverWorld;
+            Category = new OverWorld();
             MinZ = 20;
             MaxZ = 255;
-            Blocks = Glass;
+            Blocks = new Glass();
+
+
         }
     }
 }
