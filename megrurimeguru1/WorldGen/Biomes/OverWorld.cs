@@ -20,8 +20,6 @@ namespace megrurimeguru1.WorldGen.Biomes
             MinZ = 20;
             MaxZ = 255;
             Blocks = new Glass();
-
-
         }
     }
 }

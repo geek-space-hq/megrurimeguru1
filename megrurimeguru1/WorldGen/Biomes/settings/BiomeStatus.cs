@@ -54,17 +54,17 @@ namespace megrurimeguru1.WorldGen.Biomes.settings
         /// <summary>
         /// 地表で生成するブロック
         /// </summary>
-        public Block Blocks { get; set; }
+        public BlockPram Blocks { get; set; }
 
         /// <summary>
         /// 水中で生成するブロック
         /// </summary>
-        public Block UnderWaterBlocks { get; set; }
+        public BlockPram UnderWaterBlocks { get; set; }
 
         /// <summary>
         /// 水と隣合う場合に設定するブロック
         /// </summary>
-        public Block NearWaterBlocks { get; set; }
+        public BlockPram NearWaterBlocks { get; set; }
 
         /// <summary>
         /// 水に隣合う場合に設定するブロックの巾
