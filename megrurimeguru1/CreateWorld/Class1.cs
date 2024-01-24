@@ -8,5 +8,10 @@ namespace megrurimeguru1.CreateWorld
 {
     public class GetBiome
     {
+        public GetBiome() { }
+        public doubule GetBiomedensity()
+        {
+
+        }
     }
 }

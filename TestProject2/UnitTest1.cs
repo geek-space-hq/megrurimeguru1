@@ -1,4 +1,5 @@
-using Games.GetNoise;
+using Games.megrurimeguru1;
+using Games.megrurimeguru1.CreateWorld;
 using XorShiftAddSharp;
 
 namespace TestProject2
@@ -13,28 +14,7 @@ namespace TestProject2
             set { testContextInstance = value; }
         }
 
-        [TestMethod]
-        public void TestMethod1()
-        {
-            XorShiftAddPool xorShiftAddPool = new(23);
-            Games.GetNoise.GetNoise grad = new(xorShiftAddPool);
-            NoisePram noisePram = new();
-            noisePram.Frequency = 2;
-            noisePram.Persistence = (double)1;
-            noisePram.Octaves = 3;
-            noisePram.Scale = 1000;
-            List<NoisePram> noisePrams = new();
-            noisePrams.Add(noisePram);
 
-            for (int i = 0; i < 100; i++)
-            {
-                for (int j = 0; j < 100; j++)
-                {
-                    double g = grad.OctavesNoise(noisePrams, (double)i, (double)j, 0);
-                    Console.WriteLine(g.ToString());
-                }
-            }
-        }
         [TestMethod]
         public void TestMethod2()
         {
@@ -46,7 +26,7 @@ namespace TestProject2
         public void CreateMapImgTest1()
         {
             XorShiftAddPool xorShiftAddPool = new(23);
-            Games.GetNoise.CreateMapImg grad = new(xorShiftAddPool);
+            CreateMapImg grad = new(xorShiftAddPool);
             List<NoisePram> noisePrams = new();
 
             NoisePram noisePram1 = new NoisePram();
@@ -86,7 +66,7 @@ namespace TestProject2
             noisePrams.Add(noisePram3);
             noisePrams.Add(noisePram4);
 
-            grad.createMono(noisePrams,10000,10000);
+            grad.CreateImg(noisePrams,10000,10000);
         }
     }
 }
