@@ -38,6 +38,7 @@ namespace megrurimeguru1.WorldGen.Items
         public Water()
         {
             Name = "water";
+            Description = "水";
             Color = new(200, 200, 120);
             Category = settings.TerraBlocks;
         }

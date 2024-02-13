@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace megrurimeguru1.WorldGen.Biomes
 {
-    public class Plane:BiomePram
+    public class OverWorlds:BiomePram
     {
         public Plane()
         {
@@ -17,9 +17,25 @@ namespace megrurimeguru1.WorldGen.Biomes
             Description = "草wwww";
             Color = new Rgba32(150, 190, 100);
             BiomeCategory = OverWorld;
-            MinZ = 20;
+            MinZ = 64;
             MaxZ = 255;
             Blocks = Glass;
+            UnderWaterBlocks = Sand;
+            NearWaterBlockCount = 0;
+            GenerationFrequency = 60;
         }
+        public Beach()
+        {
+            Name = "Beach";
+            Description = "砂浜";
+            Color = Sand.Color;
+            BiomeCategory = OverWorld;
+            MinZ = 60;
+            MaxZ = 69;
+            Blocks = Sand;
+            UnderWaterBlocks = Sand;
+            GenerationFrequency = 30;
+        }
+
     }
 }

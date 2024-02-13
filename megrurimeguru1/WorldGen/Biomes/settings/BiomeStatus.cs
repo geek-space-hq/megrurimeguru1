@@ -78,6 +78,10 @@ namespace megrurimeguru1.WorldGen.Biomes.settings
 
         /// <summary>
         /// 出現頻度
+        /// 0~100
+        /// 0=出現しない
+        /// 100=必ずそのバイオームになる
+        /// 100のバイオームが重なった場合、出現率は50%
         /// </summary>
         public int GenerationFrequency { get; set; }
 

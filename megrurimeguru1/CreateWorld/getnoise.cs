@@ -17,12 +17,25 @@ namespace Games
         {
             private XorShiftAddPool XorRand;
 
+            /// <summary>
+            /// 確認画像生成用
+            /// </summary>
+            /// <param name="xorRand">乱数器を丸ごと渡す</param>
             public CreateMapImg(XorShiftAddPool xorRand)
             {
                 XorRand = xorRand;
             }
 
-            public void createMono(List<NoisePram> noisePram, int ImageHeight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
+            /// <summary>
+            /// 確認用画像を生成する
+            /// </summary>
+            /// <param name="noisePram">ノイズパラメータ群を渡す <br/>リストの先頭からノイズを加工する</param>
+            /// <param name="ImageHeight">生成画像縦</param>
+            /// <param name="ImageWidth">生成画像横</param>
+            /// <param name="StarX">生成開始する座標X</param>
+            /// <param name="StartY">生成開始する座標Y</param>
+            /// <param name="SavePath">画像の保存パス</param>
+            public void CreateMono(List<NoisePram> noisePram, int ImageHeight = 500, int ImageWidth = 500, int StarX = 0, int StartY = 0, String SavePath = "..\\test.png")
             {
                 GetNoise getNoise = new GetNoise(XorRand);
                 //空の画像を生成
@@ -30,6 +43,8 @@ namespace Games
                 List<List<double>> CheckImg= new();
                 double Maxblue=0;
                 double Minblue=2;
+
+                //ノイズの最大値と最小値を求める
                 for (int i = 0; i < img.Height; i++)
                 {
                     List<double> data = new List<double>();
@@ -43,6 +58,8 @@ namespace Games
                     }
                     CheckImg.Add(data);
                 }
+
+                //最大~最小までの範囲を4等分して色塗りをする
                 for (int i = 0; i < img.Height; i++)
                 {
                     for (int j = 0; j < img.Width; j++)
@@ -58,7 +75,6 @@ namespace Games
                         else 
                             img[i, j] = new Rgba32(150, 190, 100);
                     }
-                    //img[i, j] = new Rgba32(0, 0, blue);
 
                 }
                 img.Save(SavePath);
