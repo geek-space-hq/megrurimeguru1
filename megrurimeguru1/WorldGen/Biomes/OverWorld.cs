@@ -1,22 +1,37 @@
-﻿using megrurimeguru1.Item.Blocks;
-using megrurimeguru1.WorldGen.Biomes.settings;
+﻿using megrurimeguru1.WorldGen.Biomes.settings;
 using megrurimeguru1.WorldGen.Items;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace megrurimeguru1.WorldGen.Biomes
 {
-    public class OverWorlds:BiomePram
-    {
-        public Plane()
-        {
-            Name = "Plane";
+    public class OverWorlds {
+        public BiomePram PlaneBiome;
+
+        public OverWorlds(){
+            PlaneBiome.Name = "Plane";
+            PlaneBiome.Description = "草wwww";
+            PlaneBiome.Color = new Rgba32(150, 190, 100);
+            PlaneBiome.Category = OverWorld;
+            PlaneBiome.MinZ = 64;
+            PlaneBiome.MaxZ = 255;
+            PlaneBiome.Blocks = Glass;
+            PlaneBiome.UnderWaterBlocks = Sand;
+            PlaneBiome.NearWaterBlockCount = 0;
+            PlaneBiome.GenerationFrequency = 60;
+
+        }
+        /*
+        PlaneBiome. = "Plane";
             Description = "草wwww";
             Color = new Rgba32(150, 190, 100);
-            BiomeCategory = OverWorld;
+        BiomeCategory = OverWorld;
             MinZ = 64;
             MaxZ = 255;
             Blocks = Glass;
@@ -24,7 +39,7 @@ namespace megrurimeguru1.WorldGen.Biomes
             NearWaterBlockCount = 0;
             GenerationFrequency = 60;
         }
-        public Beach()
+        public void Beach()
         {
             Name = "Beach";
             Description = "砂浜";
@@ -35,7 +50,7 @@ namespace megrurimeguru1.WorldGen.Biomes
             Blocks = Sand;
             UnderWaterBlocks = Sand;
             GenerationFrequency = 30;
-        }
+        }*/
 
     }
 }

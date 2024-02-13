@@ -42,6 +42,9 @@ namespace TestProject2
             Console.WriteLine(xor.NextDouble());
             Console.WriteLine(xor.NextDouble());
         }
+        /// <summary>
+        /// ノイズの生成を確認する
+        /// </summary>
         [TestMethod]
         public void CreateMapImgTest1()
         {
@@ -86,7 +89,9 @@ namespace TestProject2
             noisePrams.Add(noisePram3);
             noisePrams.Add(noisePram4);
 
-            grad.createMono(noisePrams,10000,10000);
+            grad.CreateMono(noisePrams,10000,10000);
         }
+
+
     }
 }
